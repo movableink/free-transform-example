@@ -1,0 +1,24 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+h2, table.data { display: inline-block; vertical-align: middle; }
+
+table.data th {
+  border-bottom: 1px solid #000;
+  padding: 5px 10px;
+  font-weight: normal;
+}
+
+table.data td {
+  font-weight: bold;
+  text-align: center;
+}
+
+.canvas {
+  position: relative;
+  background-color:#EEE;
+  width: 800px;
+  height: 600px;
+  border: 2px solid #000;
+}
