@@ -22,3 +22,33 @@ table.data td {
   height: 600px;
   border: 2px solid #000;
 }
+
+.overlay .handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  z-index: 501;
+  background-color: #FFF;
+  outline: 1px solid #000;
+}
+
+.handle.tl {
+  top: -8px;
+  left: -8px;
+}
+
+.handle.tr {
+  top: -8px;
+  right: -8px;
+}
+
+.handle.bl {
+  bottom: -8px;
+  left: -8px;
+}
+
+.handle.br {
+  bottom: -8px;
+  right: -8px;
+}
