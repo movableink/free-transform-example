@@ -1,0 +1,5 @@
+<div class="canvas">
+  {{#each models as |model|}}
+    <free-transform dragStart="dragStart" dragEnd="dragEnd" model={{model}} containerDeltaX={{deltaX}} containerDeltaY={{deltaY}} container={{this}}></free-transform>
+  {{/each}}
+</div>

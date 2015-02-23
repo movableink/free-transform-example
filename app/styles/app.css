@@ -23,6 +23,11 @@ table.data td {
   border: 2px solid #000;
 }
 
+.overlay {
+  position: absolute;
+  z-index: 500;
+}
+
 .overlay .handle {
   position: absolute;
   width: 16px;

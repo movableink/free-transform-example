@@ -3,12 +3,15 @@ import Em from 'ember';
 var FreeTransform = Em.Component.extend({
   dragging: false,
   draggingCorner: null, // corner that is currently being dragged
+  selected: false,
 
   // How far element has been dragged from original position
   deltaX: 0,
   deltaY: 0,
   deltaW: 0,
   deltaH: 0,
+  containerDeltaX: 0,
+  containerDeltaY: 0,
 
   didInsertElement: function() {
     var _this = this;
@@ -16,6 +19,17 @@ var FreeTransform = Em.Component.extend({
       _this.setupResizeCorner(corner);
     });
   },
+
+  // We need to receive a 'finish' event from the container to let us know the
+  // drag has completed.  It's a bit hacky.
+  setupFinishEvent: function() {
+    var _this = this;
+    this.get('container').on('finish', function() {
+      if(_this.get('selected')) {
+        _this.finalizeDrag();
+      }
+    });
+  }.on('init'),
 
   // Add handlers to the corners
   setupResizeCorner: function(corner) {
@@ -38,7 +52,8 @@ var FreeTransform = Em.Component.extend({
         _this.moveCorner(event);
       });
 
-      workspace.one('mouseup', function() {
+      workspace.one('mouseup', function(event) {
+        event.stopPropagation();
         workspace.off('mousemove');
         _this.finalizeDrag();
         _this.draggingCorner = null;
@@ -84,14 +99,25 @@ var FreeTransform = Em.Component.extend({
     });
   },
 
+  // Only augment our offset with the container's offset if we're selected
+  groupDeltaY: function() {
+    if(this.get('selected')) { return this.get('containerDeltaY'); }
+    return 0;
+  }.property('containerDeltaY', 'selected'),
+
+  groupDeltaX: function() {
+    if(this.get('selected')) { return this.get('containerDeltaX'); }
+    return 0;
+  }.property('containerDeltaX', 'selected'),
+
   // Used for setting the element's CSS as element is dragged
   top: function() {
-    return this.get('model.top') + this.get('deltaY');
-  }.property('model.top', 'deltaY'),
+    return this.get('model.top') + this.get('deltaY') + this.get('groupDeltaY');
+  }.property('model.top', 'deltaY', 'groupDeltaX'),
 
   left: function() {
-    return this.get('model.left') + this.get('deltaX');
-  }.property('model.left', 'deltaX'),
+    return this.get('model.left') + this.get('deltaX') + this.get('groupDeltaX');
+  }.property('model.left', 'deltaX', 'groupDeltaX'),
 
   width: function() {
     return this.get('model.width') + this.get('deltaW');
@@ -103,22 +129,14 @@ var FreeTransform = Em.Component.extend({
 
   // Actions
   mouseDown: function(event) {
-    this.dragging = true;
-
-    this.startX = event.screenX;
-    this.startY = event.screenY;
-  },
-
-  mouseMove: function(event) {
-    if(!this.dragging) { return; }
-
-    this.set('deltaX', event.screenX - this.startX);
-    this.set('deltaY', event.screenY - this.startY);
+    this.sendAction('dragStart', event.screenX, event.screenY);
   },
 
   mouseUp: function() {
-    this.dragging = false;
-    this.finalizeDrag();
+    this.sendAction('dragEnd');
+    if(this.get('containerDeltaX') === 0 && this.get('containerDeltaY') === 0) {
+      this.toggleProperty('selected');
+    }
   }
 });
 

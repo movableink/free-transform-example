@@ -8,14 +8,14 @@
     <th>Width</th>
     <th>Height</th>
   </tr>
-  <tr>
-    <td>{{model.left}}</td>
-    <td>{{model.top}}</td>
-    <td>{{model.width}}</td>
-    <td>{{model.height}}</td>
-  </tr>
+  {{#each models as |model|}}
+    <tr>
+      <td>{{model.left}}</td>
+      <td>{{model.top}}</td>
+      <td>{{model.width}}</td>
+      <td>{{model.height}}</td>
+    </tr>
+  {{/each}}
 </table>
 
-<div class="canvas">
-  <free-transform model={{model}}></free-transform>
-</div>
+<free-transform-container models={{models}}></free-transform-container>
