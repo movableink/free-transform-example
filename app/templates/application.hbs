@@ -1,21 +1,3 @@
 <h1>Free Transform</h1>
 
-<h2>controller.model:</h2>
-<table class="data">
-  <tr>
-    <th>Left</th>
-    <th>Top</th>
-    <th>Width</th>
-    <th>Height</th>
-  </tr>
-  {{#each models as |model|}}
-    <tr>
-      <td>{{model.left}}</td>
-      <td>{{model.top}}</td>
-      <td>{{model.width}}</td>
-      <td>{{model.height}}</td>
-    </tr>
-  {{/each}}
-</table>
-
 <free-transform-container models={{models}}></free-transform-container>
