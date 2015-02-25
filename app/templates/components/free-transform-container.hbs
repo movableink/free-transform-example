@@ -1,5 +1,14 @@
 <div class="canvas">
   {{#each models as |model|}}
-    <free-transform dragStart="dragStart" dragEnd="dragEnd" model={{model}} containerDeltaX={{deltaX}} containerDeltaY={{deltaY}} container={{this}}></free-transform>
+    <free-transform dragStart="dragStart" dragEnd="dragEnd" toggleSelected="toggleSelected" model={{model}} containerDeltaX={{deltaX}} containerDeltaY={{deltaY}} container={{this}}></free-transform>
   {{/each}}
+
+  {{#each horizontalGuides as |guide|}}
+    <div class="hguide" style="top: {{guide}}px;"></div>
+  {{/each}}
+
+  {{#each verticalGuides as |guide|}}
+    <div class="vguide" style="left: {{guide}}px;"></div>
+  {{/each}}
+
 </div>

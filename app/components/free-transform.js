@@ -136,6 +136,7 @@ var FreeTransform = Em.Component.extend({
     this.sendAction('dragEnd');
     if(this.get('containerDeltaX') === 0 && this.get('containerDeltaY') === 0) {
       this.toggleProperty('selected');
+      this.sendAction('toggleSelected', this.get('model'));
     }
   }
 });
