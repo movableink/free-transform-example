@@ -6,16 +6,18 @@ var ApplicationController = Em.Controller.extend({
   models: function() {
     var x, y, found;
 
-    var count = 50;
+    var iterations = 0;
+    var count = 500;
     var size = 50;
-    var width = 800;
-    var height = 600;
+    var width = $(document).width() - size;
+    var height = $(document).height() - size;
     var affordance = size + 10;
 
     var modelList = [];
     for(var i = 0; i < count; i++) {
       found = false;
       while(!found) {
+        iterations += 1;
         x = Math.floor(Math.random() * (width - size));
         y = Math.floor(Math.random() * (height - size));
 
@@ -30,6 +32,7 @@ var ApplicationController = Em.Controller.extend({
             break;
           }
         }
+        if(iterations > 5000) { return modelList; }
       }
       modelList.push(Em.Object.create({top: y, left: x, width: size, height: size}));
     }
