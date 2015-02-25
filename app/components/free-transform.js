@@ -78,7 +78,7 @@ var FreeTransform = Em.Component.extend({
     if(this.draggingCorner === 'tl' || this.draggingCorner == 'tr') {
       // when dragging top handle, height changes inversely to top offset
       var deltaH = deltaY * -1;
-      this.setProperties({deltaY: deltaY, deltaH: -1 * deltaY});
+      this.setProperties({deltaY: deltaY, deltaH: deltaH});
     } else {
       this.set('deltaH', deltaY);
     }
@@ -113,7 +113,7 @@ var FreeTransform = Em.Component.extend({
   // Used for setting the element's CSS as element is dragged
   top: function() {
     return this.get('model.top') + this.get('deltaY') + this.get('groupDeltaY');
-  }.property('model.top', 'deltaY', 'groupDeltaX'),
+  }.property('model.top', 'deltaY', 'groupDeltaY'),
 
   left: function() {
     return this.get('model.left') + this.get('deltaX') + this.get('groupDeltaX');
