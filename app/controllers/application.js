@@ -1,4 +1,5 @@
 import Em from 'ember';
+import $ from 'jquery';
 
 var ApplicationController = Em.Controller.extend({
 
