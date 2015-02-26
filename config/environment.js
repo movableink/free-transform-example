@@ -5,7 +5,7 @@ module.exports = function(environment) {
     modulePrefix: 'free-transform-example',
     environment: environment,
     baseURL: '/',
-    locationType: 'auto',
+    locationType: 'none',
     EmberENV: {
       FEATURES: {
         'ember-htmlbars-component-generation': true,
