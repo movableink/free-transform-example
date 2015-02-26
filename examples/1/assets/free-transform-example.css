@@ -1,0 +1,54 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  color: #FFF;
+}
+
+.header {
+  background-color: #444;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  padding: 0 20px;
+}
+
+h1, h2, table.data {
+  padding: 10px 0;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  z-index: 2;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+h2 {
+  margin-left: 100px;
+}
+
+table.data {
+  padding: 0;
+}
+
+table.data th {
+  border-bottom: 1px solid #FFF;
+  padding: 5px 10px;
+  font-weight: normal;
+}
+
+table.data td {
+  font-weight: bold;
+  text-align: center;
+}
+
+.canvas {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #222;
+}
