@@ -75,14 +75,18 @@
   </head>
   <body>
     <ul class="sidebar">
-      <li class="selected"><a href="#examples/1/index.html">1</a></li>
-      <li><a href="#examples/2/index.html">2</a></li>
-      <li><a href="#examples/3/index.html">3</a></li>
-      <li><a href="#examples/4/index.html">4</a></li>
-
+      <li class="selected"><a href="#slides/0/index.html">1</a></li>
+      <li><a href="#examples/1/index.html">2</a></li>
+      <li><a href="#slides/1/index.html">3</a></li>
+      <li><a href="#examples/2/index.html">4</a></li>
+      <li><a href="#slides/2/index.html">5</a></li>
+      <li><a href="#examples/3/index.html">6</a></li>
+      <li><a href="#slides/3/index.html">7</a></li>
+      <li><a href="#examples/4/index.html">8</a></li>
+      <li><a href="#slides/4/index.html">9</a></li>
     </ul>
     <div class="main">
-      <iframe src="examples/1/index.html"></iframe>
+      <iframe src="slides/0/index.html"></iframe>
     </div>
 
     <script src="jquery.js"></script>
@@ -93,6 +97,7 @@
       $('iframe').attr('src', url);
         $(this).parent().siblings().removeClass("selected");
       $(this).parent().addClass("selected");
+      $('iframe').focus();
       });
       </script>
   </body>

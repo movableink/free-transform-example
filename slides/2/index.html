@@ -44,6 +44,22 @@
         <section>
           <h2>Setting up corner handles</h2>
           <pre><code data-trim contenteditable>
+<div style="position: absolute; top: {{top}}px; left: {{left}}px; width: {{width}}px; height: {{height}}px; background-color: #6AF;"></div>
+
+<div class="overlay" style="top: {{top}}px; left: {{left}}px; width: {{width}}px; height: {{height}}px;">
+  {{#if selected}}
+    <div class="handle tl"></div>
+    <div class="handle tr"></div>
+    <div class="handle bl"></div>
+    <div class="handle br"></div>
+  {{/if}}
+</div>
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Setting up corner handles</h2>
+          <pre><code data-trim contenteditable>
 didInsertElement: function() {
   var _this = this;
   ["tl", "tr", "bl", "br"].forEach(function(corner) {

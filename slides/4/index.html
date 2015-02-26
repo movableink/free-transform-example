@@ -42,71 +42,107 @@
 			<div class="slides">
 
         <section>
-          <h2>Container Component with its own deltaX / deltaY</h2>
+          <h2>Find all edges on mousedown</h2>
           <pre><code data-trim contenteditable>
-var FreeTransformContainer = Em.Component.extend({
+// Find all of the edges of all models and group them by selected/non-selected
+// in preparation for highlight alignment
+setGuideEdges: function() {
+  var models = this.get('models');
+  var selected = this.get('selectedModels');
 
-  mouseMove: function(event) {
-    if(!this._dragging) { return; }
+  var subtract = function(a, b) {
+    return a.reject(function(i) { return b.contains(i); });
+  };
 
-    // it's probably better if our offsets are in whole numbers
-    var deltaY = Math.round(event.screenY - this.startY);
-    var deltaX = Math.round(event.screenX - this.startX);
+  var unselected = subtract(models, selected);
 
-    this.setProperties({
-      deltaY: deltaY,
-      deltaX: deltaX
-    });
-  },
+  // top and bottom edges of all selected elements
+  this.selectedEdgesH = this.getEdges(selected,   'top',  'height');
+  // top and bottom edges of unselected elements
+  this.edgesH         = this.getEdges(unselected, 'top',  'height');
+  this.selectedEdgesV = this.getEdges(selected,   'left', 'width');
+  this.edgesV         = this.getEdges(unselected, 'left', 'width');
 
-  actions: {
-    dragStart: function(startX, startY) {
-      this._dragging = true;
-      this.startX = startX;
-      this.startY = startY;
-    },
+  // middle points for selected elements
+  this.selectedMidpointsH = this.getMidpoints(selected,   'top',  'height');
+  this.midpointsH         = this.getMidpoints(unselected, 'top',  'height');
+  this.selectedMidpointsV = this.getMidpoints(selected,   'left', 'width');
+  this.midpointsV         = this.getMidpoints(unselected, 'left', 'width');
 
-    dragEnd: function() {
-      this._dragging = false;
+  // sorting in advance makes it quicker to match edges
+  this.selectedEdgesH.sort();
+  this.selectedEdgesV.sort();
 
-      this.trigger('finish'); // all free-transform components receive this
-      this.setProperties({deltaX: 0, deltaY: 0});
-    }
-  }
-}
+  this.checkForGuides(0,0);
+},
           </code></pre>
         </section>
 
         <section>
-          <h2>Component sends mouse actions upward</h2>
+          <h2>Check for guide matches on mousemove</h2>
           <pre><code data-trim contenteditable>
-// Actions
-mouseDown: function(event) {
-  this.sendAction('dragStart', event.screenX, event.screenY);
-},
+// Check to see if any of the selected models' edges align with any of
+// the unselected models' edges, and create guides.
+checkForGuides: function(topDelta, leftDelta) {
+  var i, len, mid, edge;
+  this.get('horizontalGuides').clear();
+  this.get('verticalGuides').clear();
 
-mouseUp: function() {
-  this.sendAction('dragEnd');
-  if(this.get('containerDeltaX') === 0 && this.get('containerDeltaY') === 0) {
-    this.toggleProperty('selected');
+  for(i = 0, len = this.selectedMidpointsH.length; i < len; i++) {
+    mid = this.selectedMidpointsH[i];
+    if(this.get('midpointsH').indexOf(mid + topDelta) >= 0) {
+      this.get('horizontalGuides').pushObject(mid + topDelta);
+    }
   }
-}
+
+  for(i = 0, len = this.selectedMidpointsV.length; i < len; i++) {
+    mid = this.selectedMidpointsV[i];
+    if(this.get('midpointsV').indexOf(mid + leftDelta) >= 0) {
+      this.get('verticalGuides').pushObject(mid + leftDelta);
+    }
+  }
+
+  for(i = 0, len = this.selectedEdgesH.length; i < len; i++) {
+    edge = this.selectedEdgesH[i];
+    if(this.get('edgesH').indexOf(edge + topDelta) >= 0) {
+      this.get('horizontalGuides').pushObject(edge + topDelta);
+    }
+  }
+
+  for(i = 0, len = this.selectedEdgesV.length; i < len; i++) {
+    edge = this.selectedEdgesV[i];
+    if(this.get('edgesV').indexOf(edge + leftDelta) >= 0) {
+      this.get('verticalGuides').pushObject(edge + leftDelta);
+    }
+  }
+},
           </code></pre>
         </section>
 
         <section>
           <h2>Adding group movement to calculated top/left properties</h2>
           <pre><code data-trim contenteditable>
-// Used for setting the element's CSS as element is dragged
-top: function() {
-  return this.get('model.top') + this.get('deltaY') + this.get('groupDeltaY');
-}.property('model.top', 'deltaY', 'groupDeltaY'),
+<div class="canvas">
+  {{#each models as |model|}}
+    <free-transform dragStart="dragStart" dragEnd="dragEnd" toggleSelected="toggleSelected" model={{model}} containerDeltaX={{deltaX}} containerDeltaY={{deltaY}} container={{this}}></free-transform>
+  {{/each}}
 
-left: function() {
-  return this.get('model.left') + this.get('deltaX') + this.get('groupDeltaX');
-}.property('model.left', 'deltaX', 'groupDeltaX'),
+  {{#each horizontalGuides as |guide|}}
+    <div class="hguide" style="top: {{guide}}px;"></div>
+  {{/each}}
+
+  {{#each verticalGuides as |guide|}}
+    <div class="vguide" style="left: {{guide}}px;"></div>
+  {{/each}}
+
+</div>
           </code></pre>
         </section>
+
+				<section>
+					<h2>github.com/movableink/free-transform-example</h2>
+					<h3>(we're hiring!)</h3>
+				</section>
 
 			</div>
 
