@@ -67,7 +67,7 @@ var FreeTransform = Em.Component.extend({
     var deltaX = event.screenX - this.startX;
     var deltaY = event.screenY - this.startY;
 
-    if(this.draggingCorner === 'tl' || this.draggingCorner == 'bl') {
+    if(this.draggingCorner === 'tl' || this.draggingCorner === 'bl') {
       // when dragging left handle, width changes inversely to left offset
       var deltaW = deltaX * -1;
       this.setProperties({deltaX: deltaX, deltaW: deltaW});
@@ -75,7 +75,7 @@ var FreeTransform = Em.Component.extend({
       this.set('deltaW', deltaX);
     }
 
-    if(this.draggingCorner === 'tl' || this.draggingCorner == 'tr') {
+    if(this.draggingCorner === 'tl' || this.draggingCorner === 'tr') {
       // when dragging top handle, height changes inversely to top offset
       var deltaH = deltaY * -1;
       this.setProperties({deltaY: deltaY, deltaH: deltaH});
