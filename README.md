@@ -1,7 +1,11 @@
-# Free-transform-example
+# Free Transform with Ember.js
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is an exploration of how to build a free transform component in Ember, in four parts:
+
+1. Drag and drop movement
+2. Resize via corner handles
+3. Multi-select
+4. Edge guides
 
 ## Prerequisites
 
@@ -11,11 +15,10 @@ You will need the following things properly installed on your computer.
 * [Node.js](http://nodejs.org/) (with NPM)
 * [Bower](http://bower.io/)
 * [Ember CLI](http://www.ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
 
 ## Installation
 
-* `git clone <repository-url>` this repository
+* `git clone git://github.com/movableink/free-transform-example`
 * change into the new directory
 * `npm install`
 * `bower install`
@@ -25,29 +28,10 @@ You will need the following things properly installed on your computer.
 * `ember server`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
-### Code Generators
+## Examples
 
-Make use of the many generators for code, try `ember help generate` for more details
+Each example is in its own branch. (`master` includes all of the code) So if you want to see the progression, you can check out `example-1`, `example-2`, `example-3`, and `example-4`.
 
-### Running Tests
+## License
 
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://www.ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
-
+See LICENSE.
