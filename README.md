@@ -1,6 +1,6 @@
 # Free Transform with Ember.js
 
-[Watch the talk at EmberNYC](https://www.youtube.com/watch?v=gRpz5SZ7b7Q#t=2550).
+[Watch the talk at EmberNYC](https://www.youtube.com/watch?v=gRpz5SZ7b7Q#t=2550). ([slides](http://movableink.github.io/free-transform-example))
 
 This is an exploration of how to build a free transform component in Ember, in four parts:
 
